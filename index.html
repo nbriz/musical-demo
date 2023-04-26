@@ -1,0 +1,30 @@
+
+<button id="toggle">toggle</button>
+<script src="https://tonejs.github.io/build/Tone.js"></script>
+<script>
+	/* global Tone */
+  const synth = new Tone.PolySynth().toDestination()
+  const btn = document.querySelector('#toggle')
+  
+  Tone.Transport.bpm.value = 120
+  Tone.Transport.timeSignature = [4, 4]
+  
+  // functions
+  function playNote (t) {
+    const cmaj = ['C4', 'E4', 'G4']
+    synth.triggerAttackRelease(cmaj, '8n', t)
+  }
+  
+  function toggle () {
+    if (Tone.Transport.state === 'started') {
+      Tone.Transport.stop()
+    } else {
+      Tone.Transport.start()
+    }
+  }
+
+  // event listeners
+	btn.addEventListener('click', toggle)
+  Tone.Transport.scheduleRepeat(playNote, '4n')
+
+</script>
